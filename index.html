@@ -7,96 +7,73 @@
 <style>
 :root {
   color-scheme: light;
-  --bg: #f6f5f2; --surface: #ffffff; --surface-2: #f0efec; --border: #e4e2dc;
-  --text: #1b1b19; --text-2: #55534e; --muted: #8a877f;
-  --accent: #2a78d6; --accent-soft: #e6f0fc; --bar: #b7d3f6;
-  --good: #0f7b3a; --good-soft: #e3f4e9; --bad: #b8322c; --bad-soft: #fbe9e7;
-  --gold: #8a5a00; --gold-soft: #fbf0d6;
-  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+  --bg: #f6f5f2; --surface: #ffffff; --border: #e4e2dc;
+  --text: #1b1b19; --text-2: #55534e; --muted: #8a877f; --accent: #2a78d6;
+  --row: #efeeea; --row-hover: #e7e5e0; --good: #0f7b3a; --good-row: #e1f3e7; --good-hover: #d2ecdb;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #121211; --surface: #1c1c1a; --surface-2: #262624; --border: #33332f;
-    --text: #f3f2ee; --text-2: #c3c2b7; --muted: #8f8d85;
-    --accent: #5598e7; --accent-soft: #1d2b3d; --bar: #23466f;
-    --good: #5ccf8a; --good-soft: #17301f; --bad: #f07a72; --bad-soft: #3a1d1b;
-    --gold: #e6b450; --gold-soft: #33290f;
-    --shadow: none;
+    --bg: #121211; --surface: #1c1c1a; --border: #33332f;
+    --text: #f3f2ee; --text-2: #c3c2b7; --muted: #8f8d85; --accent: #5598e7;
+    --row: #232321; --row-hover: #2b2b28; --good: #5ccf8a; --good-row: #15301f; --good-hover: #1b3a26;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #121211; --surface: #1c1c1a; --surface-2: #262624; --border: #33332f;
-  --text: #f3f2ee; --text-2: #c3c2b7; --muted: #8f8d85;
-  --accent: #5598e7; --accent-soft: #1d2b3d; --bar: #23466f;
-  --good: #5ccf8a; --good-soft: #17301f; --bad: #f07a72; --bad-soft: #3a1d1b;
-  --gold: #e6b450; --gold-soft: #33290f;
-  --shadow: none;
+  --bg: #121211; --surface: #1c1c1a; --border: #33332f;
+  --text: #f3f2ee; --text-2: #c3c2b7; --muted: #8f8d85; --accent: #5598e7;
+  --row: #232321; --row-hover: #2b2b28; --good: #5ccf8a; --good-row: #15301f; --good-hover: #1b3a26;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text);
   font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 28px 16px 48px; }
-header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 20px; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 28px 16px 48px; }
+header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 16px; }
 h1 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
 .sub { color: var(--text-2); font-size: 14px; }
-.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
-.kpi b { display: block; font-size: 28px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.kpi span { color: var(--text-2); font-size: 13px; }
-.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
-.controls input, .controls select { font: inherit; color: var(--text); background: var(--surface);
-  border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; }
-.controls input { flex: 1 1 220px; min-width: 0; }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip { font: inherit; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: var(--surface);
-  color: var(--text-2); border-radius: 999px; padding: 6px 12px; }
-.chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; align-items: start; }
-@media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); min-width: 0; }
-.card.open { grid-column: 1 / -1; }
-.name { font-weight: 600; font-size: 15px; margin: 0 0 10px; }
-.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.price { font-size: 30px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
-.where { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); text-decoration: none; font-weight: 500; font-size: 14px; }
-.where:hover { text-decoration: underline; }
-.badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
-.badge { font-size: 12px; font-weight: 600; border-radius: 6px; padding: 3px 8px; background: var(--surface-2); color: var(--text-2); white-space: nowrap; }
-.badge.good { background: var(--good-soft); color: var(--good); }
-.badge.bad { background: var(--bad-soft); color: var(--bad); }
-.badge.gold { background: var(--gold-soft); color: var(--gold); }
-.spark { width: 120px; height: 36px; flex: none; }
-.toggle { margin-top: 10px; font: inherit; font-size: 13px; color: var(--text-2); background: none; border: 0; padding: 4px 0; cursor: pointer; }
-.toggle:hover { color: var(--text); }
-.detail { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 14px; gap: 24px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-.card.open .detail { display: grid; }
-@media (max-width: 760px) { .card.open .detail { grid-template-columns: 1fr; } }
-h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: .04em; }
-.stores { list-style: none; margin: 0; padding: 0; }
-.stores li a { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 10px; padding: 7px 8px;
-  border-radius: 8px; text-decoration: none; color: var(--text); }
-.stores li a:hover { background: var(--surface-2); }
-.stores .bar { height: 8px; border-radius: 0 4px 4px 0; background: var(--bar); }
-.stores .best .bar { background: var(--accent); }
-.stores .best .st { font-weight: 700; }
-.stores .nostock { opacity: .55; }
-.stores .val { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
-.stores .meta { grid-column: 2 / 4; font-size: 12px; color: var(--muted); margin-top: -6px; }
-.stores .meta .up { color: var(--bad); } .stores .meta .down { color: var(--good); }
-s { color: var(--muted); font-weight: 400; }
-.chart { position: relative; }
-.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
-.chart .axis { fill: var(--muted); font-size: 11px; }
-.chart .grid-l { stroke: var(--border); stroke-width: 1; }
-.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 6px 10px; font-size: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.12); white-space: nowrap; display: none; }
-.tip b { font-size: 14px; display: block; }
-.tip span { color: var(--text-2); }
+.legend { display: flex; gap: 14px; font-size: 13px; color: var(--text-2); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+#q { width: 100%; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 12px; margin-bottom: 14px; }
+.cols, .item > button { display: grid; grid-template-columns: minmax(0, 1fr) 100px 130px 110px; gap: 12px; align-items: center; }
+.cols { padding: 0 14px 6px; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.list { display: flex; flex-direction: column; gap: 6px; }
+.item { border-radius: 10px; background: var(--row); overflow: hidden; }
+.item.min { background: var(--good-row); }
+.item > button { width: 100%; font: inherit; color: inherit; text-align: left; background: none; border: 0;
+  padding: 11px 14px; cursor: pointer; }
+.item > button:hover { background: var(--row-hover); }
+.item.min > button:hover { background: var(--good-hover); }
+.item > button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.prod { font-weight: 600; display: flex; gap: 8px; align-items: baseline; min-width: 0; }
+.prod::before { content: "▸"; color: var(--muted); font-size: 12px; transition: transform .15s; flex: none; }
+.item.open .prod::before { transform: rotate(90deg); }
+.best { font-weight: 700; font-size: 16px; }
+.item.min .best { color: var(--good); }
+.store { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hmin { color: var(--text-2); }
+.detail { display: none; padding: 2px 14px 12px 34px; }
+.item.open .detail { display: block; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { font-size: 12px; font-weight: 600; color: var(--muted); text-align: left; padding: 6px 0; border-bottom: 1px solid var(--border); }
+td { padding: 7px 0; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: 0; }
+th.num, td.num { padding-left: 12px; }
+td a { color: var(--accent); text-decoration: none; }
+td a:hover { text-decoration: underline; }
+.tag { font-size: 12px; color: var(--muted); margin-left: 6px; }
+.atmin { color: var(--good); font-weight: 600; }
 .empty { color: var(--muted); padding: 40px 0; text-align: center; }
-.note { color: var(--muted); font-size: 12px; margin-top: 6px; }
-footer { color: var(--muted); font-size: 12px; margin-top: 28px; }
+footer { color: var(--muted); font-size: 12px; margin-top: 24px; }
+@media (max-width: 620px) {
+  .cols { display: none; }
+  .item > button { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "p b" "s m"; row-gap: 2px; }
+  .prod { grid-area: p; } .best { grid-area: b; } .store { grid-area: s; font-size: 13px; padding-left: 20px; }
+  .hmin { grid-area: m; font-size: 13px; } .hmin::before { content: "mín. "; }
+  .detail { padding-left: 14px; }
+}
 </style>
 </head>
 <body>
@@ -106,205 +83,66 @@ footer { color: var(--muted); font-size: 12px; margin-top: 28px; }
       <h1>Precios Belleza</h1>
       <div class="sub" id="sub"></div>
     </div>
+    <div class="legend"><span><i style="background:var(--good-row);border:1px solid var(--good)"></i>en su mínimo histórico</span>
+      <span><i style="background:var(--row);border:1px solid var(--border)"></i>sobre el mínimo</span></div>
   </header>
-  <section class="kpis" id="kpis"></section>
-  <div class="controls">
-    <input id="q" type="search" placeholder="Buscar producto o tienda…" aria-label="Buscar">
-    <select id="sort" aria-label="Ordenar">
-      <option value="nombre">Ordenar: nombre</option>
-      <option value="cambio">Mayor baja vs corrida anterior</option>
-      <option value="prom">Más bajo vs promedio 30 días</option>
-      <option value="precio">Precio (menor a mayor)</option>
-    </select>
-    <div class="chips" id="chips">
-      <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
-      <button class="chip" data-f="bajaron" aria-pressed="false">▼ Bajaron</button>
-      <button class="chip" data-f="minimo" aria-pressed="false">★ En mínimo histórico</button>
-    </div>
-  </div>
-  <main class="grid" id="grid"></main>
+  <input id="q" type="search" placeholder="Buscar producto o tienda…" aria-label="Buscar">
+  <div class="cols" aria-hidden="true"><span>Producto</span><span class="num">Mejor precio</span><span>Tienda</span><span class="num">Mín. histórico</span></div>
+  <main class="list" id="list"></main>
   <footer id="foot"></footer>
 </div>
-<script id="data" type="application/json">{"actualizado": "2026-10-09", "generado": "09-10-2026 15:10", "productos": [{"producto": "Anua Azelaic 10 Hyaluron Soothing Serum 30 ml", "mejor": 16906, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC65146803", "anterior": 31992, "minimo": 16906, "prom30": 31992, "serie": [{"f": "2026-10-05", "p": 31992, "t": "Cruz Verde"}, {"f": "2026-10-07", "p": 31992, "t": "Cruz Verde"}, {"f": "2026-10-08", "p": 31992, "t": "Cruz Verde"}, {"f": "2026-10-09", "p": 16906, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 16906, "normal": 19890, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC65146803", "anterior": null}, {"tienda": "Cruz Verde", "precio": 31992, "normal": 39990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/azelaic-10-hyaluon-soothing-serum-30ml/589746.html", "anterior": 31992}, {"tienda": "Ahumada", "precio": 33999, "normal": 39999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/serum-facial-anua-azelaic-10-hyaluon-soothing-30ml-97538.html", "anterior": 33999}, {"tienda": "Preunic", "precio": 39999, "normal": 39999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/serum-calmante-anua-para-rojeces-con-10-acido-azelaico-e-hialuron", "anterior": 39999}, {"tienda": "Pichara", "precio": 32990, "normal": 32990, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.pichara.cl/products/serum-facial-calmante-acido-azelaico-10-anua", "anterior": 32990}]}, {"producto": "CeraVe Limpiador Control Imperfecciones 236 ml", "mejor": 14918, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC21096841", "anterior": null, "minimo": 14918, "prom30": null, "serie": [{"f": "2026-10-09", "p": 14918, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 14918, "normal": 16590, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC21096841", "anterior": null}, {"tienda": "Falabella", "precio": 15990, "normal": 15990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.falabella.com/falabella-cl/product/50217272/Limpiador-Control-Imperfecciones-236ml-Cerave", "anterior": null}, {"tienda": "Cruz Verde", "precio": 16590, "normal": 16590, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/limpiador-control-imperfecciones-236ml/544151.html", "anterior": null}, {"tienda": "Preunic", "precio": 16599, "normal": 16599, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/limpiador-control-imperfecciones-236-ml", "anterior": null}, {"tienda": "Ahumada", "precio": 16649, "normal": 16649, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/limpiador-cerave-control-imperfecciones-236-ml-91606.html", "anterior": null}, {"tienda": "Paris", "precio": 16590, "normal": 16590, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.paris.cl/limpiador-control-imperfecciones-236-ml-263514999.html", "anterior": null}]}, {"producto": "CeraVe Limpiador Control Imperfecciones 473 ml", "mejor": 16192, "tienda": "Cruz Verde", "url": "https://www.cruzverde.cl/limpiador-control-imperfecciones-473-ml/578564.html", "anterior": 10795, "minimo": 10795, "prom30": 11516, "serie": [{"f": "2026-10-05", "p": 12959, "t": "Preunic"}, {"f": "2026-10-07", "p": 10795, "t": "Cruz Verde"}, {"f": "2026-10-08", "p": 10795, "t": "Cruz Verde"}, {"f": "2026-10-09", "p": 16192, "t": "Cruz Verde"}], "tiendas": [{"tienda": "Cruz Verde", "precio": 16192, "normal": 21590, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/limpiador-control-imperfecciones-473-ml/578564.html", "anterior": 10795}, {"tienda": "Preunic", "precio": 17279, "normal": 21599, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/limpiador-facial-cerave-control-imperfecciones-473-ml", "anterior": 17279}, {"tienda": "Ahumada", "precio": 21599, "normal": 21599, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/limpiador-cerave-control-imperfecciones-473-ml-95984.html", "anterior": 21599}]}, {"producto": "Dove Shampoo Hidratación + Hialuron-VIT 650 ml", "mejor": 4868, "tienda": "Cruz Verde", "url": "https://www.cruzverde.cl/shampoo-hidratacion--hilauron-vit-650ml/578203.html", "anterior": 4868, "minimo": 4168, "prom30": 4401, "serie": [{"f": "2026-10-05", "p": 4168, "t": "Ahumada"}, {"f": "2026-10-07", "p": 4168, "t": "Ahumada"}, {"f": "2026-10-08", "p": 4868, "t": "Cruz Verde"}, {"f": "2026-10-09", "p": 4868, "t": "Cruz Verde"}], "tiendas": [{"tienda": "Cruz Verde", "precio": 4868, "normal": 7490, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/shampoo-hidratacion--hilauron-vit-650ml/578203.html", "anterior": 4868}, {"tienda": "Ahumada", "precio": 5990, "normal": 7579, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/shampoo-dove-hidratacion-650-ml-96016.html", "anterior": 5990}, {"tienda": "Tottus", "precio": 5990, "normal": 7390, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.tottus.cl/tottus-cl/articulo/147031043/dove-sh-hidrat-hilauron-vit-650ml", "anterior": 5990}, {"tienda": "Preunic", "precio": 7499, "normal": 7499, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/shampoo-dove-hidratacion-hialuronico-650ml", "anterior": 7499}]}, {"producto": "Dove Sérum Corporal Niacinamida 400 ml", "mejor": 6990, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC34281482", "anterior": 8443, "minimo": 6990, "prom30": 7581, "serie": [{"f": "2026-10-05", "p": 7150, "t": "Ahumada"}, {"f": "2026-10-07", "p": 7150, "t": "Ahumada"}, {"f": "2026-10-08", "p": 8443, "t": "Cruz Verde"}, {"f": "2026-10-09", "p": 6990, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 6990, "normal": 12990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC34281482", "anterior": null}, {"tienda": "Cruz Verde", "precio": 8443, "normal": 12990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/serum-corporal-niacinamida-400ml/570406.html", "anterior": 8443}, {"tienda": "Preunic", "precio": 12999, "normal": 12999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/dove-serum-corporal-niacinamida-400ml", "anterior": 12999}, {"tienda": "Ahumada", "precio": 14299, "normal": 14299, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/serum-corporal-con-niacinamida-dove-400ml-96663.html", "anterior": 14299}]}, {"producto": "Dove Óleo Bifásico Bond Intense Repair 110 ml", "mejor": 4790, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC40339258", "anterior": 4794, "minimo": 4679, "prom30": 4717, "serie": [{"f": "2026-10-05", "p": 4679, "t": "Ahumada"}, {"f": "2026-10-07", "p": 4679, "t": "Ahumada"}, {"f": "2026-10-08", "p": 4794, "t": "Cruz Verde"}, {"f": "2026-10-09", "p": 4790, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 4790, "normal": 7990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC40339258", "anterior": null}, {"tienda": "Cruz Verde", "precio": 4794, "normal": 7990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/oleo-bifasico-bond-intense-repair-110ml/561547.html", "anterior": 4794}, {"tienda": "Ahumada", "precio": 6790, "normal": 7799, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/oleo-dove-bond-intense-repar-110-ml-93432.html", "anterior": 6790}, {"tienda": "Preunic", "precio": 6959, "normal": 7999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/oleo-bifasico-dove-bond-intense-repair", "anterior": 6959}, {"tienda": "Tottus", "precio": 6990, "normal": 7990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.tottus.cl/tottus-cl/articulo/132845686/dove-oleo-bond-intense-repar-110ml", "anterior": 6990}]}, {"producto": "Elvive Óleo Extraordinario 100 ml", "mejor": 6490, "tienda": "El Químico", "url": "https://www.farmaciaelquimico.cl/products/elvive-aceite-oleo-extraordinario", "anterior": 6490, "minimo": 6490, "prom30": 6490, "serie": [{"f": "2026-10-05", "p": 6490, "t": "El Químico"}, {"f": "2026-10-07", "p": 6490, "t": "El Químico"}, {"f": "2026-10-08", "p": 6490, "t": "El Químico"}, {"f": "2026-10-09", "p": 6490, "t": "El Químico"}], "tiendas": [{"tienda": "El Químico", "precio": 6490, "normal": 6490, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciaelquimico.cl/products/elvive-aceite-oleo-extraordinario", "anterior": 6490}, {"tienda": "Cruz Verde", "precio": 7063, "normal": 10090, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/aceite-capilar-oleo-extraordinario-tratamiento-100ml/267589.html", "anterior": 7063}, {"tienda": "Farmex", "precio": 7290, "normal": 7290, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmex.cl/products/oleo-extraordinario-todo-tipo-de-cabello-x-100-ml", "anterior": 7290}, {"tienda": "Preunic", "precio": 8159, "normal": 10199, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/oleo-extraordinario", "anterior": 8159}, {"tienda": "Ahumada", "precio": 8271, "normal": 10339, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/aceite-capilar-elvive-extraordinario-oleo-100-ml-74250.html", "anterior": 8271}]}, {"producto": "La Roche-Posay Anthelios Age Correct FPS50 50 ml", "mejor": 20990, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC58703507", "anterior": null, "minimo": 20990, "prom30": null, "serie": [{"f": "2026-10-09", "p": 20990, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 20990, "normal": 29990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC58703507", "anterior": null}, {"tienda": "Salcobrand", "precio": 29499, "normal": 29499, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://salcobrand.cl/products/protector-solar-rostro-anthelios-age-correct-fps50-50ml", "anterior": null}, {"tienda": "Cruz Verde", "precio": 29990, "normal": 29990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/anthelios-age-correct-fps50-50ml/391643.html", "anterior": null}, {"tienda": "Preunic", "precio": 29999, "normal": 29999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/protector-solar-rostro-la-roche-posay-anthelios-age-correct-fps-50-50ml", "anterior": null}, {"tienda": "Ahumada", "precio": 30299, "normal": 30299, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/protector-solar-la-roche-posay-anthelios-age-correct-rostro-fps50--50-ml-89341.html", "anterior": null}, {"tienda": "Ecofarmacias", "precio": 22490, "normal": 22490, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.ecofarmacias.cl/producto/la-roche-posay-protector-solar-anthelios-age-correct-fps50-50-ml/", "anterior": null}, {"tienda": "Paris", "precio": 29990, "normal": 29990, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.paris.cl/protector-solar-rostro-anthelios-age-correct-fps50-50-ml-820099999.html", "anterior": null}]}, {"producto": "La Roche-Posay Retinol B3 Sérum 30 ml", "mejor": 23676, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC19627219", "anterior": 39290, "minimo": 20115, "prom30": 27252, "serie": [{"f": "2026-10-05", "p": 22350, "t": "Ahumada"}, {"f": "2026-10-07", "p": 20115, "t": "Ahumada"}, {"f": "2026-10-08", "p": 39290, "t": "Farmex"}, {"f": "2026-10-09", "p": 23676, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 23676, "normal": 23676, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC19627219", "anterior": null}, {"tienda": "Farmex", "precio": 39290, "normal": 41990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmex.cl/products/serum-antiarrugas-retinol-b3-30ml-1", "anterior": 39290}, {"tienda": "Falabella", "precio": 44490, "normal": 44490, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.falabella.com/falabella-cl/product/8751330/Retinol-B3-Serum-30-ml", "anterior": 44490}, {"tienda": "Preunic", "precio": 44499, "normal": 44499, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/serum-antiarrugas-la-roche-posay-retinol-b3-30ml", "anterior": 44499}, {"tienda": "Ahumada", "precio": 44699, "normal": 44699, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/serum-la-roche-posay-retinol-b3-30-ml-87901.html", "anterior": 44699}, {"tienda": "Salcobrand", "precio": 44999, "normal": 44999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://salcobrand.cl/products/serum-antiarrugas-retinol-b3-30ml", "anterior": 44999}, {"tienda": "Paris", "precio": 31140, "normal": 44490, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.paris.cl/serum-antiarrugas-retinol-b3-30-ml-239544999.html", "anterior": 31140}, {"tienda": "Cruz Verde", "precio": 45990, "normal": 45990, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.cruzverde.cl/retinol-b3-serum-concentrado-antiarrugas-30-ml/298788.html", "anterior": 22995}]}, {"producto": "Micopirox Shampoo 1% 100 ml", "mejor": 16990, "tienda": "Ecofarmacias", "url": "https://www.ecofarmacias.cl/producto/micopirox-1-shampoo-100-ml/", "anterior": 16990, "minimo": 16990, "prom30": 16990, "serie": [{"f": "2026-10-05", "p": 16990, "t": "Ecofarmacias"}, {"f": "2026-10-07", "p": 16990, "t": "Ecofarmacias"}, {"f": "2026-10-08", "p": 16990, "t": "Ecofarmacias"}, {"f": "2026-10-09", "p": 16990, "t": "Ecofarmacias"}], "tiendas": [{"tienda": "Ecofarmacias", "precio": 16990, "normal": 16990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.ecofarmacias.cl/producto/micopirox-1-shampoo-100-ml/", "anterior": 16990}, {"tienda": "Cruz Verde", "precio": 22581, "normal": 25090, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/micopirox-ciclopiroxolamina-1-shampoo-medicado-100-ml/264609.html", "anterior": 20072}, {"tienda": "Ahumada", "precio": 26439, "normal": 26439, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/micopirox-1-x-100-ml-shampoo-71637.html", "anterior": 26439}]}, {"producto": "Neutrogena Hydro Boost Water Gel Refill 50 g", "mejor": 8212, "tienda": "Ahumada", "url": "https://www.farmaciasahumada.cl/crema-facial-neutrogena-hydro-boost-50-gr-refill-92182.html", "anterior": 7956, "minimo": 6569, "prom30": 7031, "serie": [{"f": "2026-10-05", "p": 6569, "t": "Ahumada"}, {"f": "2026-10-07", "p": 6569, "t": "Ahumada"}, {"f": "2026-10-08", "p": 7956, "t": "Preunic"}, {"f": "2026-10-09", "p": 8212, "t": "Ahumada"}], "tiendas": [{"tienda": "Ahumada", "precio": 8212, "normal": 10949, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/crema-facial-neutrogena-hydro-boost-50-gr-refill-92182.html", "anterior": 10949}, {"tienda": "El Químico", "precio": 8490, "normal": 8490, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciaelquimico.cl/products/neutrogena-hydro-boost-recarga-crema-gel-hidratante", "anterior": 8490}, {"tienda": "Preunic", "precio": 8501, "normal": 10899, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/refill-crema-para-rostro-neutrogena-hydro-boost-water-gel-hidratante-acido-hialuronico-50-ml", "anterior": 7956}]}, {"producto": "SKIN1004 Centella Soothing Cream 75 ml (calmante)", "mejor": 23990, "tienda": "Pichara", "url": "https://www.pichara.cl/products/crema-facial-calmante-centella-75ml-skin1004", "anterior": 23990, "minimo": 23990, "prom30": 23990, "serie": [{"f": "2026-10-05", "p": 23990, "t": "Pichara"}, {"f": "2026-10-07", "p": 23990, "t": "Pichara"}, {"f": "2026-10-08", "p": 23990, "t": "Pichara"}, {"f": "2026-10-09", "p": 23990, "t": "Pichara"}], "tiendas": [{"tienda": "Pichara", "precio": 23990, "normal": 29990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.pichara.cl/products/crema-facial-calmante-centella-75ml-skin1004", "anterior": 23990}]}, {"producto": "SKIN1004 Hyalu-Cica First Ampoule 100 ml", "mejor": 22990, "tienda": "Falabella", "url": "https://www.falabella.com/falabella-cl/product/157375846/skin1004-madagascar-centella-hyalu-cica-first-ampoule-100-ml", "anterior": 22990, "minimo": 18179, "prom30": 19783, "serie": [{"f": "2026-10-05", "p": 18179, "t": "Ahumada"}, {"f": "2026-10-07", "p": 18179, "t": "Ahumada"}, {"f": "2026-10-08", "p": 22990, "t": "Falabella"}, {"f": "2026-10-09", "p": 22990, "t": "Falabella"}], "tiendas": [{"tienda": "Falabella", "precio": 22990, "normal": 39990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.falabella.com/falabella-cl/product/157375846/skin1004-madagascar-centella-hyalu-cica-first-ampoule-100-ml", "anterior": 22990}, {"tienda": "Pichara", "precio": 23990, "normal": 29990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.pichara.cl/products/ampolla-hidratante-hyalu-cica-100ml-skin1004", "anterior": 23990}, {"tienda": "Ahumada", "precio": 24239, "normal": 30299, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/ampoule-hyalu-cica-skin1004-100ml-94895.html", "anterior": 30299}]}, {"producto": "SKIN1004 Hyalu-Cica Silky Fit Sun Stick", "mejor": 13808, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC29256025", "anterior": 19910, "minimo": 13808, "prom30": 19910, "serie": [{"f": "2026-10-05", "p": 19910, "t": "Pichara"}, {"f": "2026-10-07", "p": 19910, "t": "Pichara"}, {"f": "2026-10-08", "p": 19910, "t": "Pichara"}, {"f": "2026-10-09", "p": 13808, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 13808, "normal": 15371, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC29256025", "anterior": null}, {"tienda": "Pichara", "precio": 19910, "normal": 24900, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.pichara.cl/products/protector-solar-barra-hyalu-cica-silky-skin1004", "anterior": 19910}]}, {"producto": "SKIN1004 Madagascar Centella Cream 75 ml (hidratante)", "mejor": 21590, "tienda": "Pichara", "url": "https://www.pichara.cl/products/crema-facial-hidratante-centella-75ml-skin1004", "anterior": 21590, "minimo": 16379, "prom30": 18116, "serie": [{"f": "2026-10-05", "p": 16379, "t": "Ahumada"}, {"f": "2026-10-07", "p": 16379, "t": "Ahumada"}, {"f": "2026-10-08", "p": 21590, "t": "Pichara"}, {"f": "2026-10-09", "p": 21590, "t": "Pichara"}], "tiendas": [{"tienda": "Pichara", "precio": 21590, "normal": 26990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.pichara.cl/products/crema-facial-hidratante-centella-75ml-skin1004", "anterior": 21590}, {"tienda": "Ahumada", "precio": 21839, "normal": 27299, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/crema-centella-skin1004-75ml-94901.html", "anterior": 27299}, {"tienda": "Preunic", "precio": 26599, "normal": 27999, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://preunic.cl/products/crema-skin1004-madagascar-centella-75-ml", "anterior": 26599}, {"tienda": "Falabella", "precio": 27990, "normal": 27990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.falabella.com/falabella-cl/product/80592240/Madagascar-Centella-Cream", "anterior": 27990}, {"tienda": "Cruz Verde", "precio": 22320, "normal": 27900, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.cruzverde.cl/madagascar-centella-cream-75ml/574349.html", "anterior": 22320}]}, {"producto": "Sibilla Dienogest 2 mg 21 comprimidos", "mejor": 7362, "tienda": "Farmex", "url": "https://www.farmex.cl/products/sibilla-x-21-comprimidos-2", "anterior": 7362, "minimo": 6870, "prom30": 7198, "serie": [{"f": "2026-10-05", "p": 6870, "t": "Dr. Simi"}, {"f": "2026-10-07", "p": 7362, "t": "Farmex"}, {"f": "2026-10-08", "p": 7362, "t": "Farmex"}, {"f": "2026-10-09", "p": 7362, "t": "Farmex"}], "tiendas": [{"tienda": "Farmex", "precio": 7362, "normal": 7590, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmex.cl/products/sibilla-x-21-comprimidos-2", "anterior": 7362}, {"tienda": "El Químico", "precio": 7990, "normal": 7990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciaelquimico.cl/products/sibilla-comprimidos-recubiertos", "anterior": 7990}, {"tienda": "Dr. Simi", "precio": 9160, "normal": 9160, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.drsimi.cl/sibilla-dienogest-2-mg-etinilestradiol-0-03-mg-21-comprimidos-recubiertos/p", "anterior": 9160}, {"tienda": "Ahumada", "precio": 10074, "normal": 15499, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.farmaciasahumada.cl/sibilla-21-comprimidos-recubiertos-80111.html", "anterior": 10074}, {"tienda": "Cruz Verde", "precio": 13941, "normal": 15490, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.cruzverde.cl/sibilla-dienogest-2-mg-21-comprimidos-recubierto/273107.html", "anterior": 10068}, {"tienda": "Ecofarmacias", "precio": 6990, "normal": 6990, "tarjeta": null, "tarjeta_nombre": "", "stock": false, "url": "https://www.ecofarmacias.cl/producto/sibilla-x-21-comprimidos/", "anterior": 6990}]}, {"producto": "The Ordinary Cafeína 5% + EGCG 30 ml", "mejor": 12490, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC24869506", "anterior": 13100, "minimo": 12490, "prom30": 13100, "serie": [{"f": "2026-10-05", "p": 13100, "t": "Falabella"}, {"f": "2026-10-07", "p": 13100, "t": "Falabella"}, {"f": "2026-10-08", "p": 13100, "t": "Falabella"}, {"f": "2026-10-09", "p": 12490, "t": "MercadoLibre"}], "tiendas": [{"tienda": "MercadoLibre", "precio": 12490, "normal": 21990, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.mercadolibre.cl/p/MLC24869506", "anterior": null}, {"tienda": "Falabella", "precio": 13100, "normal": 13100, "tarjeta": null, "tarjeta_nombre": "", "stock": true, "url": "https://www.falabella.com/falabella-cl/product/883669672/suero-de-cafeina-5-egcg-the-ordinary-30-ml/883669673", "anterior": 13100}]}]}</script>
+<script id="data" type="application/json">{"actualizado": "2026-10-09", "generado": "09-10-2026 15:21", "productos": [{"producto": "Anua Azelaic 10 Hyaluron Soothing Serum 30 ml", "mejor": 16906, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC65146803", "minimo": 16906, "dias": 4, "tiendas": [{"tienda": "MercadoLibre", "precio": 16906, "url": "https://www.mercadolibre.cl/p/MLC65146803", "stock": true, "minimo": 16906}, {"tienda": "Cruz Verde", "precio": 31992, "url": "https://www.cruzverde.cl/azelaic-10-hyaluon-soothing-serum-30ml/589746.html", "stock": true, "minimo": 31992}, {"tienda": "Ahumada", "precio": 33999, "url": "https://www.farmaciasahumada.cl/serum-facial-anua-azelaic-10-hyaluon-soothing-30ml-97538.html", "stock": true, "minimo": 33999}, {"tienda": "Preunic", "precio": 39999, "url": "https://preunic.cl/products/serum-calmante-anua-para-rojeces-con-10-acido-azelaico-e-hialuron", "stock": true, "minimo": 33999}, {"tienda": "Pichara", "precio": 32990, "url": "https://www.pichara.cl/products/serum-facial-calmante-acido-azelaico-10-anua", "stock": false, "minimo": 32990}]}, {"producto": "CeraVe Limpiador Control Imperfecciones 236 ml", "mejor": 14918, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC21096841", "minimo": 14918, "dias": 1, "tiendas": [{"tienda": "MercadoLibre", "precio": 14918, "url": "https://www.mercadolibre.cl/p/MLC21096841", "stock": true, "minimo": 14918}, {"tienda": "Falabella", "precio": 15990, "url": "https://www.falabella.com/falabella-cl/product/50217272/Limpiador-Control-Imperfecciones-236ml-Cerave", "stock": true, "minimo": 15990}, {"tienda": "Cruz Verde", "precio": 16590, "url": "https://www.cruzverde.cl/limpiador-control-imperfecciones-236ml/544151.html", "stock": true, "minimo": 16590}, {"tienda": "Preunic", "precio": 16599, "url": "https://preunic.cl/products/limpiador-control-imperfecciones-236-ml", "stock": true, "minimo": 16599}, {"tienda": "Ahumada", "precio": 16649, "url": "https://www.farmaciasahumada.cl/limpiador-cerave-control-imperfecciones-236-ml-91606.html", "stock": true, "minimo": 16649}, {"tienda": "Paris", "precio": 16590, "url": "https://www.paris.cl/limpiador-control-imperfecciones-236-ml-263514999.html", "stock": false, "minimo": 16590}]}, {"producto": "CeraVe Limpiador Control Imperfecciones 473 ml", "mejor": 16192, "tienda": "Cruz Verde", "url": "https://www.cruzverde.cl/limpiador-control-imperfecciones-473-ml/578564.html", "minimo": 10795, "dias": 4, "tiendas": [{"tienda": "Cruz Verde", "precio": 16192, "url": "https://www.cruzverde.cl/limpiador-control-imperfecciones-473-ml/578564.html", "stock": true, "minimo": 10795}, {"tienda": "Preunic", "precio": 17279, "url": "https://preunic.cl/products/limpiador-facial-cerave-control-imperfecciones-473-ml", "stock": true, "minimo": 12959}, {"tienda": "Ahumada", "precio": 21599, "url": "https://www.farmaciasahumada.cl/limpiador-cerave-control-imperfecciones-473-ml-95984.html", "stock": true, "minimo": 15119}]}, {"producto": "Dove Shampoo Hidratación + Hialuron-VIT 650 ml", "mejor": 4868, "tienda": "Cruz Verde", "url": "https://www.cruzverde.cl/shampoo-hidratacion--hilauron-vit-650ml/578203.html", "minimo": 4168, "dias": 4, "tiendas": [{"tienda": "Cruz Verde", "precio": 4868, "url": "https://www.cruzverde.cl/shampoo-hidratacion--hilauron-vit-650ml/578203.html", "stock": true, "minimo": 4868}, {"tienda": "Ahumada", "precio": 5990, "url": "https://www.farmaciasahumada.cl/shampoo-dove-hidratacion-650-ml-96016.html", "stock": true, "minimo": 4168}, {"tienda": "Tottus", "precio": 5990, "url": "https://www.tottus.cl/tottus-cl/articulo/147031043/dove-sh-hidrat-hilauron-vit-650ml", "stock": true, "minimo": 4434}, {"tienda": "Preunic", "precio": 7499, "url": "https://preunic.cl/products/shampoo-dove-hidratacion-hialuronico-650ml", "stock": true, "minimo": 4874}]}, {"producto": "Dove Sérum Corporal Niacinamida 400 ml", "mejor": 6990, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC34281482", "minimo": 6990, "dias": 4, "tiendas": [{"tienda": "MercadoLibre", "precio": 6990, "url": "https://www.mercadolibre.cl/p/MLC34281482", "stock": true, "minimo": 6990}, {"tienda": "Cruz Verde", "precio": 8443, "url": "https://www.cruzverde.cl/serum-corporal-niacinamida-400ml/570406.html", "stock": true, "minimo": 8443}, {"tienda": "Preunic", "precio": 12999, "url": "https://preunic.cl/products/dove-serum-corporal-niacinamida-400ml", "stock": true, "minimo": 8449}, {"tienda": "Ahumada", "precio": 14299, "url": "https://www.farmaciasahumada.cl/serum-corporal-con-niacinamida-dove-400ml-96663.html", "stock": true, "minimo": 7150}]}, {"producto": "Dove Óleo Bifásico Bond Intense Repair 110 ml", "mejor": 4790, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC40339258", "minimo": 4679, "dias": 4, "tiendas": [{"tienda": "MercadoLibre", "precio": 4790, "url": "https://www.mercadolibre.cl/p/MLC40339258", "stock": true, "minimo": 4790}, {"tienda": "Cruz Verde", "precio": 4794, "url": "https://www.cruzverde.cl/oleo-bifasico-bond-intense-repair-110ml/561547.html", "stock": true, "minimo": 4794}, {"tienda": "Ahumada", "precio": 6790, "url": "https://www.farmaciasahumada.cl/oleo-dove-bond-intense-repar-110-ml-93432.html", "stock": true, "minimo": 4679}, {"tienda": "Preunic", "precio": 6959, "url": "https://preunic.cl/products/oleo-bifasico-dove-bond-intense-repair", "stock": true, "minimo": 5199}, {"tienda": "Tottus", "precio": 6990, "url": "https://www.tottus.cl/tottus-cl/articulo/132845686/dove-oleo-bond-intense-repar-110ml", "stock": true, "minimo": 4790}]}, {"producto": "Elvive Óleo Extraordinario 100 ml", "mejor": 6490, "tienda": "El Químico", "url": "https://www.farmaciaelquimico.cl/products/elvive-aceite-oleo-extraordinario", "minimo": 6490, "dias": 4, "tiendas": [{"tienda": "El Químico", "precio": 6490, "url": "https://www.farmaciaelquimico.cl/products/elvive-aceite-oleo-extraordinario", "stock": true, "minimo": 6490}, {"tienda": "Cruz Verde", "precio": 7063, "url": "https://www.cruzverde.cl/aceite-capilar-oleo-extraordinario-tratamiento-100ml/267589.html", "stock": true, "minimo": 7063}, {"tienda": "Farmex", "precio": 7290, "url": "https://www.farmex.cl/products/oleo-extraordinario-todo-tipo-de-cabello-x-100-ml", "stock": true, "minimo": 7290}, {"tienda": "Preunic", "precio": 8159, "url": "https://preunic.cl/products/oleo-extraordinario", "stock": true, "minimo": 7139}, {"tienda": "Ahumada", "precio": 8271, "url": "https://www.farmaciasahumada.cl/aceite-capilar-elvive-extraordinario-oleo-100-ml-74250.html", "stock": true, "minimo": 6720}]}, {"producto": "La Roche-Posay Anthelios Age Correct FPS50 50 ml", "mejor": 20990, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC58703507", "minimo": 20990, "dias": 1, "tiendas": [{"tienda": "MercadoLibre", "precio": 20990, "url": "https://www.mercadolibre.cl/p/MLC58703507", "stock": true, "minimo": 20990}, {"tienda": "Salcobrand", "precio": 29499, "url": "https://salcobrand.cl/products/protector-solar-rostro-anthelios-age-correct-fps50-50ml", "stock": true, "minimo": 29499}, {"tienda": "Cruz Verde", "precio": 29990, "url": "https://www.cruzverde.cl/anthelios-age-correct-fps50-50ml/391643.html", "stock": true, "minimo": 29990}, {"tienda": "Preunic", "precio": 29999, "url": "https://preunic.cl/products/protector-solar-rostro-la-roche-posay-anthelios-age-correct-fps-50-50ml", "stock": true, "minimo": 29999}, {"tienda": "Ahumada", "precio": 30299, "url": "https://www.farmaciasahumada.cl/protector-solar-la-roche-posay-anthelios-age-correct-rostro-fps50--50-ml-89341.html", "stock": true, "minimo": 30299}, {"tienda": "Ecofarmacias", "precio": 22490, "url": "https://www.ecofarmacias.cl/producto/la-roche-posay-protector-solar-anthelios-age-correct-fps50-50-ml/", "stock": false, "minimo": 22490}, {"tienda": "Paris", "precio": 29990, "url": "https://www.paris.cl/protector-solar-rostro-anthelios-age-correct-fps50-50-ml-820099999.html", "stock": false, "minimo": 29990}]}, {"producto": "La Roche-Posay Retinol B3 Sérum 30 ml", "mejor": 23676, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC19627219", "minimo": 20115, "dias": 4, "tiendas": [{"tienda": "MercadoLibre", "precio": 23676, "url": "https://www.mercadolibre.cl/p/MLC19627219", "stock": true, "minimo": 23676}, {"tienda": "Farmex", "precio": 39290, "url": "https://www.farmex.cl/products/serum-antiarrugas-retinol-b3-30ml-1", "stock": true, "minimo": 39290}, {"tienda": "Falabella", "precio": 44490, "url": "https://www.falabella.com/falabella-cl/product/8751330/Retinol-B3-Serum-30-ml", "stock": true, "minimo": 23000}, {"tienda": "Preunic", "precio": 44499, "url": "https://preunic.cl/products/serum-antiarrugas-la-roche-posay-retinol-b3-30ml", "stock": true, "minimo": 26699}, {"tienda": "Ahumada", "precio": 44699, "url": "https://www.farmaciasahumada.cl/serum-la-roche-posay-retinol-b3-30-ml-87901.html", "stock": true, "minimo": 20115}, {"tienda": "Salcobrand", "precio": 44999, "url": "https://salcobrand.cl/products/serum-antiarrugas-retinol-b3-30ml", "stock": true, "minimo": 22050}, {"tienda": "Paris", "precio": 31140, "url": "https://www.paris.cl/serum-antiarrugas-retinol-b3-30-ml-239544999.html", "stock": false, "minimo": 24460}, {"tienda": "Cruz Verde", "precio": 45990, "url": "https://www.cruzverde.cl/retinol-b3-serum-concentrado-antiarrugas-30-ml/298788.html", "stock": false, "minimo": 20695}]}, {"producto": "Micopirox Shampoo 1% 100 ml", "mejor": 16990, "tienda": "Ecofarmacias", "url": "https://www.ecofarmacias.cl/producto/micopirox-1-shampoo-100-ml/", "minimo": 16990, "dias": 4, "tiendas": [{"tienda": "Ecofarmacias", "precio": 16990, "url": "https://www.ecofarmacias.cl/producto/micopirox-1-shampoo-100-ml/", "stock": true, "minimo": 16990}, {"tienda": "Cruz Verde", "precio": 22581, "url": "https://www.cruzverde.cl/micopirox-ciclopiroxolamina-1-shampoo-medicado-100-ml/264609.html", "stock": true, "minimo": 20072}, {"tienda": "Ahumada", "precio": 26439, "url": "https://www.farmaciasahumada.cl/micopirox-1-x-100-ml-shampoo-71637.html", "stock": true, "minimo": 26439}]}, {"producto": "Neutrogena Hydro Boost Water Gel Refill 50 g", "mejor": 8212, "tienda": "Ahumada", "url": "https://www.farmaciasahumada.cl/crema-facial-neutrogena-hydro-boost-50-gr-refill-92182.html", "minimo": 6569, "dias": 4, "tiendas": [{"tienda": "Ahumada", "precio": 8212, "url": "https://www.farmaciasahumada.cl/crema-facial-neutrogena-hydro-boost-50-gr-refill-92182.html", "stock": true, "minimo": 6569}, {"tienda": "El Químico", "precio": 8490, "url": "https://www.farmaciaelquimico.cl/products/neutrogena-hydro-boost-recarga-crema-gel-hidratante", "stock": true, "minimo": 8490}, {"tienda": "Preunic", "precio": 8501, "url": "https://preunic.cl/products/refill-crema-para-rostro-neutrogena-hydro-boost-water-gel-hidratante-acido-hialuronico-50-ml", "stock": true, "minimo": 7956}]}, {"producto": "SKIN1004 Centella Soothing Cream 75 ml (calmante)", "mejor": 23990, "tienda": "Pichara", "url": "https://www.pichara.cl/products/crema-facial-calmante-centella-75ml-skin1004", "minimo": 23990, "dias": 4, "tiendas": [{"tienda": "Pichara", "precio": 23990, "url": "https://www.pichara.cl/products/crema-facial-calmante-centella-75ml-skin1004", "stock": true, "minimo": 23990}]}, {"producto": "SKIN1004 Hyalu-Cica First Ampoule 100 ml", "mejor": 22990, "tienda": "Falabella", "url": "https://www.falabella.com/falabella-cl/product/157375846/skin1004-madagascar-centella-hyalu-cica-first-ampoule-100-ml", "minimo": 18179, "dias": 4, "tiendas": [{"tienda": "Falabella", "precio": 22990, "url": "https://www.falabella.com/falabella-cl/product/157375846/skin1004-madagascar-centella-hyalu-cica-first-ampoule-100-ml", "stock": true, "minimo": 22990}, {"tienda": "Pichara", "precio": 23990, "url": "https://www.pichara.cl/products/ampolla-hidratante-hyalu-cica-100ml-skin1004", "stock": true, "minimo": 23990}, {"tienda": "Ahumada", "precio": 24239, "url": "https://www.farmaciasahumada.cl/ampoule-hyalu-cica-skin1004-100ml-94895.html", "stock": true, "minimo": 18179}]}, {"producto": "SKIN1004 Hyalu-Cica Silky Fit Sun Stick", "mejor": 13808, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC29256025", "minimo": 13808, "dias": 4, "tiendas": [{"tienda": "MercadoLibre", "precio": 13808, "url": "https://www.mercadolibre.cl/p/MLC29256025", "stock": true, "minimo": 13808}, {"tienda": "Pichara", "precio": 19910, "url": "https://www.pichara.cl/products/protector-solar-barra-hyalu-cica-silky-skin1004", "stock": true, "minimo": 19910}]}, {"producto": "SKIN1004 Madagascar Centella Cream 75 ml (hidratante)", "mejor": 21590, "tienda": "Pichara", "url": "https://www.pichara.cl/products/crema-facial-hidratante-centella-75ml-skin1004", "minimo": 16379, "dias": 4, "tiendas": [{"tienda": "Pichara", "precio": 21590, "url": "https://www.pichara.cl/products/crema-facial-hidratante-centella-75ml-skin1004", "stock": true, "minimo": 21590}, {"tienda": "Ahumada", "precio": 21839, "url": "https://www.farmaciasahumada.cl/crema-centella-skin1004-75ml-94901.html", "stock": true, "minimo": 16379}, {"tienda": "Preunic", "precio": 26599, "url": "https://preunic.cl/products/crema-skin1004-madagascar-centella-75-ml", "stock": true, "minimo": 23799}, {"tienda": "Falabella", "precio": 27990, "url": "https://www.falabella.com/falabella-cl/product/80592240/Madagascar-Centella-Cream", "stock": true, "minimo": 27990}, {"tienda": "Cruz Verde", "precio": 22320, "url": "https://www.cruzverde.cl/madagascar-centella-cream-75ml/574349.html", "stock": false, "minimo": 22320}]}, {"producto": "Sibilla Dienogest 2 mg 21 comprimidos", "mejor": 7362, "tienda": "Farmex", "url": "https://www.farmex.cl/products/sibilla-x-21-comprimidos-2", "minimo": 6870, "dias": 4, "tiendas": [{"tienda": "Farmex", "precio": 7362, "url": "https://www.farmex.cl/products/sibilla-x-21-comprimidos-2", "stock": true, "minimo": 7362}, {"tienda": "El Químico", "precio": 7990, "url": "https://www.farmaciaelquimico.cl/products/sibilla-comprimidos-recubiertos", "stock": true, "minimo": 7990}, {"tienda": "Dr. Simi", "precio": 9160, "url": "https://www.drsimi.cl/sibilla-dienogest-2-mg-etinilestradiol-0-03-mg-21-comprimidos-recubiertos/p", "stock": true, "minimo": 6870}, {"tienda": "Ahumada", "precio": 10074, "url": "https://www.farmaciasahumada.cl/sibilla-21-comprimidos-recubiertos-80111.html", "stock": true, "minimo": 10074}, {"tienda": "Cruz Verde", "precio": 13941, "url": "https://www.cruzverde.cl/sibilla-dienogest-2-mg-21-comprimidos-recubierto/273107.html", "stock": true, "minimo": 10068}, {"tienda": "Ecofarmacias", "precio": 6990, "url": "https://www.ecofarmacias.cl/producto/sibilla-x-21-comprimidos/", "stock": false, "minimo": 6990}]}, {"producto": "The Ordinary Cafeína 5% + EGCG 30 ml", "mejor": 12490, "tienda": "MercadoLibre", "url": "https://www.mercadolibre.cl/p/MLC24869506", "minimo": 12490, "dias": 4, "tiendas": [{"tienda": "MercadoLibre", "precio": 12490, "url": "https://www.mercadolibre.cl/p/MLC24869506", "stock": true, "minimo": 12490}, {"tienda": "Falabella", "precio": 13100, "url": "https://www.falabella.com/falabella-cl/product/883669672/suero-de-cafeina-5-egcg-the-ordinary-30-ml/883669673", "stock": true, "minimo": 13100}]}]}</script>
 <script>
 const DATA = JSON.parse(document.getElementById('data').textContent);
 const P = DATA.productos;
 const clp = n => n == null ? '—' : '$' + n.toLocaleString('es-CL');
-const dmy = f => f.slice(8, 10) + '-' + f.slice(5, 7);
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-const SVG = 'http://www.w3.org/2000/svg';
-const sv = (tag, attrs) => { const e = document.createElementNS(SVG, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
-
-P.forEach(p => {
-  p.cambio = p.mejor != null && p.anterior != null ? p.mejor - p.anterior : null;
-  p.vsProm = p.mejor != null && p.prom30 ? (p.mejor - p.prom30) / p.prom30 : null;
-  p.enMinimo = p.mejor != null && p.serie.length > 1 && p.mejor <= p.minimo;
-});
 
 const [y, m, d] = DATA.actualizado.split('-');
 document.getElementById('sub').textContent = `Precios del ${d}-${m}-${y} · ${P.length} productos`;
-document.getElementById('foot').textContent = `Generado ${DATA.generado} desde data/historial.csv. El mejor precio solo considera tiendas con stock. Click en una tienda abre su página.`;
+document.getElementById('foot').textContent = `Generado ${DATA.generado}. El mejor precio solo considera tiendas con stock. Haz clic en un producto para ver cada tienda.`;
 
-const kpis = [
-  [P.length, 'productos seguidos'],
-  [new Set(P.flatMap(p => p.tiendas.map(t => t.tienda))).size, 'tiendas'],
-  [P.filter(p => p.cambio < 0).length, 'bajaron vs corrida anterior'],
-  [P.filter(p => p.enMinimo).length, 'en su mínimo histórico'],
-];
-const K = document.getElementById('kpis');
-kpis.forEach(([v, l]) => { const k = el('div', 'kpi'); k.append(el('b', null, v), el('span', null, l)); K.append(k); });
-
-let filtro = 'todos';
-document.getElementById('chips').addEventListener('click', e => {
-  const b = e.target.closest('.chip'); if (!b) return;
-  filtro = b.dataset.f;
-  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === b));
-  render();
-});
-document.getElementById('q').addEventListener('input', render);
-document.getElementById('sort').addEventListener('change', render);
-
-function badge(cls, txt) { return el('span', 'badge ' + cls, txt); }
-
-function sparkline(serie) {
-  const s = sv('svg', { class: 'spark', viewBox: '0 0 120 36', 'aria-hidden': 'true' });
-  if (serie.length < 2) return s;
-  const ps = serie.map(x => x.p), lo = Math.min(...ps), hi = Math.max(...ps), r = hi - lo || 1;
-  const pts = serie.map((x, i) => [4 + i * 112 / (serie.length - 1), hi === lo ? 18 : 30 - (x.p - lo) / r * 24]);
-  s.append(sv('polyline', { points: pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
-  const [lx, ly] = pts[pts.length - 1];
-  s.append(sv('circle', { cx: lx, cy: ly, r: 3.5, fill: 'var(--accent)', stroke: 'var(--surface)', 'stroke-width': 2 }));
-  return s;
+function detail(p) {
+  const t = el('table');
+  const hr = el('tr');
+  hr.append(el('th', null, 'Tienda'), el('th', 'num', 'Precio actual'), el('th', 'num', 'Mín. en la tienda'));
+  t.append(hr);
+  p.tiendas.forEach(s => {
+    const tr = el('tr');
+    const td = el('td'), a = el('a', null, s.tienda);
+    a.href = s.url; a.target = '_blank'; a.rel = 'noopener';
+    td.append(a);
+    if (!s.stock) td.append(el('span', 'tag', 'sin stock'));
+    const cur = el('td', 'num' + (s.precio <= s.minimo ? ' atmin' : ''), clp(s.precio));
+    tr.append(td, cur, el('td', 'num', clp(s.minimo)));
+    t.append(tr);
+  });
+  return t;
 }
 
-function chart(serie) {
-  const box = el('div', 'chart');
-  if (serie.length < 2) { box.append(el('p', 'note', 'Aún hay un solo día de datos; el gráfico aparece desde la segunda corrida.')); return box; }
-  const W = 520, H = 200, L = 58, R = 12, T = 12, B = 26;
-  const ps = serie.map(x => x.p);
-  let lo = Math.min(...ps), hi = Math.max(...ps);
-  const pad = (hi - lo) * 0.15 || hi * 0.05; lo = Math.max(0, lo - pad); hi += pad;
-  const X = i => L + (serie.length === 1 ? 0 : i * (W - L - R) / (serie.length - 1));
-  const Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
-  const s = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Mejor precio diario' });
-  for (let k = 0; k <= 3; k++) {
-    const v = lo + (hi - lo) * k / 3, yy = Y(v);
-    s.append(sv('line', { class: 'grid-l', x1: L, x2: W - R, y1: yy, y2: yy }));
-    const t = sv('text', { class: 'axis', x: L - 8, y: yy + 4, 'text-anchor': 'end' }); t.textContent = clp(Math.round(v / 10) * 10); s.append(t);
-  }
-  const step = Math.max(1, Math.ceil(serie.length / 6));
-  serie.forEach((x, i) => {
-    if (i % step && i !== serie.length - 1) return;
-    const t = sv('text', { class: 'axis', x: X(i), y: H - 6, 'text-anchor': i === 0 ? 'start' : i === serie.length - 1 ? 'end' : 'middle' });
-    t.textContent = dmy(x.f); s.append(t);
-  });
-  s.append(sv('polyline', { points: serie.map((x, i) => X(i) + ',' + Y(x.p)).join(' '), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-linejoin': 'round' }));
-  const hair = sv('line', { y1: T, y2: H - B, stroke: 'var(--muted)', 'stroke-width': 1, 'stroke-dasharray': '3 3', visibility: 'hidden' });
-  s.append(hair);
-  const dot = sv('circle', { r: 4.5, fill: 'var(--accent)', stroke: 'var(--surface)', 'stroke-width': 2, visibility: 'hidden' });
-  s.append(dot);
-  const tip = el('div', 'tip');
-  box.append(s, tip);
-  const hide = () => { tip.style.display = 'none'; hair.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); };
-  s.addEventListener('pointermove', e => {
-    const rc = s.getBoundingClientRect(), sx = rc.width / W, sy = rc.height / H;
-    const vx = (e.clientX - rc.left) / sx;
-    const i = Math.max(0, Math.min(serie.length - 1, Math.round((vx - L) / ((W - L - R) / (serie.length - 1)))));
-    const x = serie[i];
-    hair.setAttribute('x1', X(i)); hair.setAttribute('x2', X(i)); hair.setAttribute('visibility', 'visible');
-    dot.setAttribute('cx', X(i)); dot.setAttribute('cy', Y(x.p)); dot.setAttribute('visibility', 'visible');
-    tip.replaceChildren(el('b', null, clp(x.p)), el('span', null, `${dmy(x.f)} · ${x.t}`));
-    tip.style.display = 'block';
-    const px = X(i) * sx, w = tip.offsetWidth;
-    tip.style.left = Math.min(Math.max(0, px - w / 2), rc.width - w) + 'px';
-    tip.style.top = Math.max(0, Y(x.p) * sy - tip.offsetHeight - 12) + 'px';
-  });
-  s.addEventListener('pointerleave', hide);
-  return box;
-}
-
-function storeList(p) {
-  const ul = el('ul', 'stores');
-  const max = Math.max(...p.tiendas.map(t => t.precio));
-  p.tiendas.forEach(t => {
-    const li = el('li', (t.url === p.url ? 'best' : '') + (t.stock ? '' : ' nostock'));
-    const a = el('a'); a.href = t.url; a.target = '_blank'; a.rel = 'noopener';
-    const bar = el('div', 'bar'); bar.style.width = Math.max(4, t.precio / max * 100) + '%';
-    const val = el('span', 'val');
-    if (t.normal && t.normal > t.precio) { val.append(el('s', null, clp(t.normal)), ' '); }
-    val.append(clp(t.precio));
-    a.append(el('span', 'st', t.tienda + (t.url === p.url ? ' ★' : '')), bar, val);
-    const meta = el('div', 'meta');
-    const bits = [];
-    if (!t.stock) bits.push(['', 'sin stock']);
-    if (t.tarjeta) bits.push(['', `${clp(t.tarjeta)} con ${t.tarjeta_nombre}`]);
-    if (t.anterior != null && t.anterior !== t.precio) {
-      const dlt = t.precio - t.anterior;
-      bits.push([dlt < 0 ? 'down' : 'up', `${dlt < 0 ? '▼' : '▲'} ${clp(Math.abs(dlt))} vs anterior`]);
-    }
-    bits.forEach(([c, txt], i) => { if (i) meta.append(' · '); meta.append(el('span', c, txt)); });
-    if (bits.length) a.append(meta);
-    li.append(a); ul.append(li);
-  });
-  return ul;
-}
-
-function card(p) {
-  const c = el('article', 'card');
-  c.append(el('h2', 'name', p.producto));
-  const row = el('div', 'row');
-  const left = el('div');
-  left.append(el('div', 'price', clp(p.mejor)));
-  if (p.url) {
-    const a = el('a', 'where', `en ${p.tienda} ↗`); a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
-    left.append(a);
-  }
-  row.append(left, sparkline(p.serie));
-  c.append(row);
-  const b = el('div', 'badges');
-  if (p.cambio < 0) b.append(badge('good', `▼ bajó ${clp(-p.cambio)}`));
-  else if (p.cambio > 0) b.append(badge('bad', `▲ subió ${clp(p.cambio)}`));
-  else if (p.cambio === 0) b.append(badge('', '= sin cambio'));
-  if (p.vsProm != null) {
-    const pct = Math.round(p.vsProm * 100);
-    b.append(badge(pct < 0 ? 'good' : pct > 0 ? 'bad' : '', `${pct > 0 ? '+' : ''}${pct}% vs prom. 30d`));
-  }
-  if (p.enMinimo) b.append(badge('gold', '★ mínimo histórico'));
-  else if (p.minimo != null && p.minimo < p.mejor) b.append(badge('', `mín. ${clp(p.minimo)}`));
-  c.append(b);
-  const tg = el('button', 'toggle', `Ver ${p.tiendas.length} tienda${p.tiendas.length === 1 ? '' : 's'} y evolución ▾`);
-  tg.setAttribute('aria-expanded', 'false');
+const items = new Map(P.map(p => {
+  const it = el('section', 'item' + (p.mejor != null && p.mejor <= p.minimo ? ' min' : ''));
+  const b = el('button');
+  b.setAttribute('aria-expanded', 'false');
+  b.append(el('span', 'prod', p.producto), el('span', 'num best', clp(p.mejor)),
+           el('span', 'store', p.tienda || 'sin datos'), el('span', 'num hmin', clp(p.minimo)));
   const det = el('div', 'detail');
-  let filled = false;
-  tg.addEventListener('click', () => {
-    if (!filled) {
-      const s1 = el('div'), s2 = el('div');
-      s1.append(el('h3', null, 'Hoy por tienda'), storeList(p));
-      s2.append(el('h3', null, 'Mejor precio diario'), chart(p.serie));
-      det.append(s1, s2); filled = true;
-    }
-    const open = c.classList.toggle('open');
-    tg.setAttribute('aria-expanded', open);
-    tg.textContent = open ? 'Ocultar ▴' : `Ver ${p.tiendas.length} tienda${p.tiendas.length === 1 ? '' : 's'} y evolución ▾`;
+  b.addEventListener('click', () => {
+    if (!det.firstChild) det.append(detail(p));
+    b.setAttribute('aria-expanded', it.classList.toggle('open'));
   });
-  c.append(tg, det);
-  return c;
-}
-
-const cards = new Map(P.map(p => [p, card(p)]));
+  it.append(b, det);
+  return [p, it];
+}));
 
 function render() {
   const q = document.getElementById('q').value.trim().toLowerCase();
-  const sort = document.getElementById('sort').value;
-  let list = P.filter(p => !q || p.producto.toLowerCase().includes(q) || p.tiendas.some(t => t.tienda.toLowerCase().includes(q)));
-  if (filtro === 'bajaron') list = list.filter(p => p.cambio < 0);
-  if (filtro === 'minimo') list = list.filter(p => p.enMinimo);
-  const key = { nombre: p => 0, cambio: p => p.cambio ?? 1e9, prom: p => p.vsProm ?? 1e9, precio: p => p.mejor ?? 1e12 }[sort];
-  list = [...list].sort((a, b) => key(a) - key(b) || a.producto.localeCompare(b.producto, 'es'));
-  const G = document.getElementById('grid');
-  G.replaceChildren(...list.map(p => cards.get(p)));
-  if (!list.length) G.append(el('p', 'empty', 'Ningún producto coincide.'));
+  const list = P.filter(p => !q || p.producto.toLowerCase().includes(q) || p.tiendas.some(t => t.tienda.toLowerCase().includes(q)));
+  const L = document.getElementById('list');
+  L.replaceChildren(...list.map(p => items.get(p)));
+  if (!list.length) L.append(el('p', 'empty', 'Ningún producto coincide.'));
 }
+document.getElementById('q').addEventListener('input', render);
 render();
 </script>
 </body>
